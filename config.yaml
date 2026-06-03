@@ -1,0 +1,80 @@
+# PD-BBB Step 1 paths. Absolute. Edit if data layout changes.
+data_root: D:/Parkinson_file
+repo_root: D:/PD_BBB_analysis
+
+clinical:
+  demographics_zip: D:/Parkinson_file/Subject_Demographics.zip
+  demographics_csv_in_zip: Demographics_20Apr2026.csv
+  cohort_csv_in_zip: Subject_Cohort_History_20Apr2026.csv
+  updrs3: D:/Parkinson_file/MDS-UPDRS_Part_III_20Apr2026.csv
+  moca: D:/Parkinson_file/Montreal_Cognitive_Assessment__MoCA__20Apr2026.csv
+  datscan_quant: D:/Parkinson_file/Xing_Core_Lab_-_Quant_SBR_25Apr2026.csv
+  datscan_meta: D:/Parkinson_file/Xing_Core_Lab_-_DATSCAN_acquisition_metadata_25Apr2026.csv
+  saa: D:/Parkinson_file/SAA_Biospecimen_Analysis_Results_25Apr2026.csv
+
+clinical_supplementary:
+  # Downloaded 2026-05-03 from LONI IDA. Closes the LONI supplementary checklist.
+  # Loaders for these come in Step 2 (LEDD), Step 3 (CBC), and Step 3 (biospec validation panel).
+  biospecimen_analysis: D:/Parkinson_file/Current_Biospecimen_Analysis_Results_02May2026.csv
+  # Long-format file (1.1M rows). Contains: CSF Albumin + Plasma Albumin (project 181),
+  # NfL/GFAP via Simoa (projects 144, 152, 256, 283), APOE Genotype (project 104),
+  # GBA carrier status (full sequencing + N370S variant), LRRK2.
+  # Schema: PATNO,SEX,COHORT,CLINICAL_EVENT,TYPE,TESTNAME,TESTVALUE,UNITS,RUNDATE,PROJECTID,...
+
+  ledd_log: D:/Parkinson_file/LEDD_Concomitant_Medication_Log_02May2026.csv
+  # Per-medication-per-period log (9,692 rows). Aggregate per (PATNO, EVENT_ID)
+  # to get total LEDD active at each visit (sum of LEDD across active meds).
+  # Schema: REC_ID,PATNO,EVENT_ID,LEDTRT,LEDDOSE,STARTDT,STOPDT,LEDD,...
+
+  cbc: D:/Parkinson_file/Blood_Chemistry___Hematology_02May2026.csv
+  # 357,578 rows across 6,097 PATNOs. Filter to LGROUP IN
+  # ('HEMAT','HEMATOLOGY&DIFFERENTIAL PANEL') for CBC subset.
+  # Contains Neutrophils/Lymphocytes/Monocytes/Eosinophils/Basophils (count + %),
+  # plus Hb/Hct/RBC/WBC/Platelets/MCV. Used for Step 3 CIBERSORTx
+  # deconvolution sanity check.
+  # Schema: PATNO,EVENT_ID,LCOLLDT,LGROUP,LTSTNAME,LSIRES,LSIUNIT,...
+
+rna_seq:
+  metadata: D:/Parkinson_file/PPMI_RNA_extracted/metaDataIR3.csv
+  counts_dir: D:/Parkinson_file/PPMI_RNA_extracted/counts
+  quant_dir: D:/Parkinson_file/PPMI_RNA_extracted/quant
+  fail_dir: D:/Parkinson_file/PPMI_RNA_extracted/fail
+
+proteomics:
+  olink_cardio: D:/Parkinson_file/PPMI_Project_9000_Plasma_Cardio_NPX_26Apr2026.csv
+  olink_inf: D:/Parkinson_file/PPMI_Project_9000_Plasma_INF_NPX_26Apr2026.csv
+  olink_neuro: D:/Parkinson_file/PPMI_Project_9000_Plasma_NEURO_NPX_26Apr2026.csv
+
+snrnaseq:
+  # GSE178265 (primary atlas)  -  pre-processed h5ads on disk from earlier work
+  gse178265_endothelial_h5ad: D:/Parkinson_file/Human Endothelial.h5ad
+  gse178265_nondaneurons_h5ad: D:/Parkinson_file/Human Non-DA Neurons.h5ad
+  gse178265_metadata: D:/Parkinson_file/METADATA_PD.tsv.gz
+  gse178265_matrix: D:/Parkinson_file/GSE178265_Homo_matrix.mtx.gz
+  gse178265_features: D:/Parkinson_file/GSE178265_Homo_features.tsv.gz
+  gse178265_barcodes: D:/Parkinson_file/GSE178265_Homo_bcd.tsv.gz
+
+  # Step 2 sensitivity datasets (downloaded 2026-05-03 from GEO)
+  # Smajic 2022 GSE157783: postmortem midbrain snRNA-seq, 11 donors (5 IPD + 6 control).
+  # Single TSV-style UMI matrix (cells x genes), separate cell + gene metadata files.
+  smajic_umi_tar: D:/Parkinson_file/snrnaseq/GSE157783_IPDCO_hg_midbrain_UMI.tar.gz
+  smajic_cell_tar: D:/Parkinson_file/snrnaseq/GSE157783_IPDCO_hg_midbrain_cell.tar.gz
+  smajic_genes_tar: D:/Parkinson_file/snrnaseq/GSE157783_IPDCO_hg_midbrain_genes.tar.gz
+
+  # Agarwal 2020 GSE140231: matched cortex + SN snRNA-seq from 5 donors, 12 samples.
+  # "tar of tar": 12 GSM*_Sample_*.tar.gz files inside, each a 10X mtx bundle
+  # (matrix.mtx + barcodes.tsv + features.tsv).
+  # Sample-name codes: C = Cortex, N = Nigra (TISSUE, not condition). All 5 donors
+  # are CONTROLS  -  Agarwal is an SN reference atlas paper, not a PD case-control
+  # study. Agarwal contributes only to the control side of integrated analysis
+  # and cannot do standalone PD-vs-Control DE.
+  agarwal_raw_tar: D:/Parkinson_file/snrnaseq/GSE140231_RAW.tar
+
+manuscripts:
+  v1_draft: D:/Parkinson_file/Manuscript.md
+
+results:
+  cache_dir: D:/PD_BBB_analysis/results/cache
+  qc_dir: D:/PD_BBB_analysis/results/qc
+  power_dir: D:/PD_BBB_analysis/results/power
+  v1_baseline_dir: D:/PD_BBB_analysis/results/v1_baseline

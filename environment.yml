@@ -1,0 +1,40 @@
+name: pd-bbb
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  # Python core
+  - python=3.11
+  - pip
+  - pandas
+  - numpy
+  - scipy
+  - pyarrow
+  - pyyaml
+  - tqdm
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - statsmodels
+  - scanpy
+  - anndata
+  - pytest
+  - jupyterlab
+  - tabulate
+  # Python pip packages (S1 + S3 + S4 needs)
+  - pip:
+      - lifelines
+      - gseapy
+      - pydeseq2
+      - mygene
+      - jinja2
+# DEFERRED  -  install in later steps when needed:
+#  - scvi-tools, harmonypy, torch  → Step 2 (snRNA-seq integration)
+#    Both fail on this Windows host without Visual Studio Build Tools + VC++ runtime.
+#    Defer to S2; if local Windows can't build, run S2 on KISTI cluster (Linux).
+#  - r-base, r-lme4, r-simr, etc.  → Step 5 (final mixed-effects model)
+#    conda-forge r-base=4.3 has a Windows-specific grDevices.dll forward-import bug
+#    on this host that VC++ Redist 2015-2022 does not resolve. Step 1 R tasks
+#    (power calc, reports) are pivoted to Python equivalents (statsmodels.MixedLM,
+#    Jinja2 HTML). The pre-registered Step 5 lme4::lmer model runs on the KISTI
+#    cluster (Linux), not on this Windows machine.
