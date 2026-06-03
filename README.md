@@ -136,14 +136,6 @@ Each post-hoc design document was committed to version control before the corres
 
 ---
 
-## Citation
-
-If you use this code, please cite the paper:
-
-> Atif Z., Akber U., Kim H.-I., Kwon H.-S., Park C.-S. (2026). *Brain, blood, and cerebrospinal fluid vascular biomarkers reflect distinct biology in Parkinson's disease.* npj Parkinson's Disease, [volume]([issue]), [page].
-
----
-
 ## License
 
 This code is released under the MIT License. See `LICENSE` for details.
