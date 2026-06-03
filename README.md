@@ -2,7 +2,7 @@
 
 Analysis code for the pre-registered multi-modal study testing whether brain-derived, plasma, and cerebrospinal-fluid (CSF) signals of blood-brain barrier (BBB) biology share variance and jointly predict clinical progression in Parkinson's disease (PD).
 
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20520505.svg)](https://doi.org/10.5281/zenodo.20520505)
 
 ---
 
